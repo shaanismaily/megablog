@@ -1,9 +1,10 @@
-import { Client, ID, Query, TablesDB } from "appwrite";
+import { Client, ID, Query, Storage, TablesDB } from "appwrite";
 import conf from "../conf/conf";
 
 export class AppwriteService {
     client = new Client();
     tablesDB
+    storage
     
     constructor() {
         this.client
@@ -11,6 +12,7 @@ export class AppwriteService {
         .setProject(conf.appwriteProjectId)
 
     this.tablesDB = new TablesDB(this.client)
+    this.storage = new Storage(this.client)
     }
 
 
@@ -52,7 +54,7 @@ export class AppwriteService {
         }
     }
 
-    async deletePost({slug}) {
+    async deletePost(slug) {
         try {
             await this.tablesDB.deleteRow({
                 databaseId: conf.appwriteDatabaseId,
@@ -91,4 +93,44 @@ export class AppwriteService {
             return false;
         }
     }
+
+    async uploadFile(file) {
+        try {
+            return await this.storage.createFile({
+                bucketId: conf.appwriteBucketId,
+                fileId: ID.unique(),
+                file 
+            })
+        } catch (error) {
+            console.log("uploadFile error:", error);
+            return false;
+        }
+    }
+
+    async deleteFile(fileId) {
+        try {
+            await this.storage.deleteFile({
+                bucketId: conf.appwriteBucketId,
+                fileId
+            })
+            return true;
+        } catch (error) {
+            console.log("Error in deleteFile appwrite service", error)
+            return false;
+        }
+    }
+
+    async getFilePreview(fileId) {
+        try {
+            return this.storage.getFilePreview({
+                bucketId: conf.appwriteBucketId,
+                fileId
+            })
+        } catch (error) {
+            console.log("appwrite service getFilePreview error", error);
+        }
+    }
 }
+
+const appwriteService = new AppwriteService()
+export default appwriteService;
