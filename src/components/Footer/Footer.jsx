@@ -9,11 +9,11 @@ function Footer() {
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
                             <div className="mb-4 inline-flex items-center">
-                                <Logo width="100px" />
+                                <Logo width="80px" className="rounded-lg shadow-md" />
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600">
-                                    &copy; Copyright 2026. All Rights Reserved by DevUI.
+                                    &copy; Copyright 2026. All Rights Reserved by ShaanIsmaily.
                                 </p>
                             </div>
                         </div>
