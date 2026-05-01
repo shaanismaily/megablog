@@ -13,6 +13,12 @@ import {
 import { RouterProvider } from "react-router-dom";
 import { Login, AuthLayout, Signup } from "./components/index.js";
 
+import Home from "./components/pages/Home.jsx";
+import AllPosts from "./components/pages/AllPosts.jsx";
+import Post from "./components/pages/Post.jsx";
+import EditPost from "./components/pages/EditPost.jsx";
+import AddPost from "../../react-mega-project/src/components/pages/AddPost.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -31,6 +37,33 @@ const router = createBrowserRouter(
             <Signup />
           </AuthLayout>
         }
+      />
+      <Route 
+        path="/"
+        element={<Home />}
+      />
+      <Route 
+      path="/all-posts"
+      element={
+      <AuthLayout children={<AllPosts />} authentication />}
+      />
+      <Route 
+      path="/add-post"
+      element={<AuthLayout authentication>
+            {" "}
+            <AddPost />
+          </AuthLayout>}
+      />
+      <Route 
+      path="/edit-post/:slug"
+      element={<AuthLayout authentication>
+            {" "}
+            <EditPost />
+          </AuthLayout>}
+      />
+      <Route 
+      path="/post/:slug"
+      element={<Post />}
       />
     </Route>,
   ),

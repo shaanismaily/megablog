@@ -22,15 +22,15 @@ export class AuthService {
         name,
       );
 
-      if (!userAccount) return null;
+      if (!userAccount) {
+        throw new Error("Account creation failed");
+      }
 
-      await this.login({ email, password }).catch(() => {
-        console.warn("Account created, but login failed.");
-      });
-      return userAccount;
+      const session = await this.login({ email, password });
+      return session;
 
     } catch (error) {
-      console.log("Signup failed ", error);
+      console.log("Signup failed ", error.message);
       throw error;
     }
   }
