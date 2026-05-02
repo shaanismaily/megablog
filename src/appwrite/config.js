@@ -16,21 +16,20 @@ export class AppwriteService {
     }
 
 
-    async createPost({title, slug, content, featuredImage, status, userId}) {
+    async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
-            return await this.TablesDB.createRow({
+            return await this.tablesDB.createRow({
                 databaseId: conf.appwriteDatabaseId,
                 tableId: conf.appwriteTableId,
                 rowId: slug || ID.unique(),
                 data: {
                     title,
-                    slug,
                     content,
                     featuredImage,
                     status,
                     userId
                 }
-            })
+            });
         } catch (error) {
             console.log("Post not created", error);
         }
@@ -120,14 +119,14 @@ export class AppwriteService {
         }
     }
 
-    async getFilePreview(fileId) {
+    async getFileView(fileId) {
         try {
-            return this.storage.getFilePreview({
+            return this.storage.getFileView({
                 bucketId: conf.appwriteBucketId,
                 fileId
             })
         } catch (error) {
-            console.log("appwrite service getFilePreview error", error);
+            console.log("appwrite service getFileView error", error);
         }
     }
 }

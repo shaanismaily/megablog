@@ -17,7 +17,7 @@ import Home from "./components/pages/Home.jsx";
 import AllPosts from "./components/pages/AllPosts.jsx";
 import Post from "./components/pages/Post.jsx";
 import EditPost from "./components/pages/EditPost.jsx";
-import AddPost from "../../react-mega-project/src/components/pages/AddPost.jsx";
+import AddPost from "./components/pages/AddPost.jsx"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,8 +44,10 @@ const router = createBrowserRouter(
       />
       <Route 
       path="/all-posts"
-      element={
-      <AuthLayout children={<AllPosts />} authentication />}
+       element={<AuthLayout authentication>
+            {" "}
+            <AllPosts />
+          </AuthLayout>}
       />
       <Route 
       path="/add-post"
