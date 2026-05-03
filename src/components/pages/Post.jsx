@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import appwriteService from "../../appwrite/config";
 import {useSelector} from "react-redux";
-import authSlice from "../../store/authSlice"
 import {useNavigate, useParams} from "react-router-dom"
 import { useState } from "react";
 import { Container, Button } from "../index"
@@ -88,6 +87,10 @@ function Post() {
         </div>
       </Container>
     </div>
-  ) : null;
+  ) : (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <p className="text-gray-500">Loading post...</p>
+    </div>
+  );
 }
 export default Post;

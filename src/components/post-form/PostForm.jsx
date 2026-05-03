@@ -2,7 +2,7 @@ import appwriteService from "../../appwrite/config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Input, Button, RTE, Select } from "../index";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
 function PostForm({ post }) {
@@ -16,10 +16,11 @@ function PostForm({ post }) {
     control,
     setValue,
     getValues,
+    reset
   } = useForm({
     defaultValues: {
       title: post?.title || "",
-      slug: post?.slug || "",
+      slug: post?.$id || "",
       content: post?.content || "",
       status: post?.status || "active",
     },
@@ -30,7 +31,6 @@ function PostForm({ post }) {
       navigate("/login");
       return;
     }
-
     try {
       if (post) {
         // UPDATE FLOW
@@ -90,6 +90,8 @@ function PostForm({ post }) {
   }, []);
 
   useEffect(() => {
+    if (post) return;
+
     const subscription = watch((value, { name }) => {
       if (name === "title") {
         setValue("slug", slugTransform(value.title), {
@@ -100,6 +102,17 @@ function PostForm({ post }) {
 
     return () => subscription.unsubscribe();
   }, [watch, setValue, slugTransform]);
+
+  useEffect(() => {
+  if (post) {
+    reset({
+      title: post.title,
+      slug: post.$id,
+      content: post.content,
+      status: post.status || "active",
+    });
+  }
+}, [post, reset]);
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -121,13 +134,13 @@ function PostForm({ post }) {
               shouldValidate: true,
             })
           }
+          disabled={!!post}
         />
 
         <RTE
           label="Content:"
           name="content"
           control={control}
-          defaultValue={getValues("content")}
         />
       </div>
 
