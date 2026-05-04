@@ -9,7 +9,6 @@ function Footer() {
         {/* Top Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* Brand */}
           <div className="flex flex-col gap-4">
             <Logo width="100px" className="rounded-lg" />
             <p className="text-sm text-gray-400 leading-relaxed">
@@ -17,7 +16,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* Company */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
               Company
@@ -36,7 +34,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
               Support
@@ -55,7 +52,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
               Legal
@@ -82,11 +78,10 @@ function Footer() {
             © 2026 ShaanIsmaily. All rights reserved.
           </p>
 
-          {/* Optional Socials */}
           <div className="flex gap-4">
             <span className="text-gray-400 text-sm">Follow:</span>
-            <a href="#" className="hover:text-white">GitHub</a>
-            <a href="#" className="hover:text-white">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/shaanismaily" target="_blank" className="hover:text-white">GitHub</a>
+            <a href="https://github.com/shaanismaily" target="_blank" className="hover:text-white">LinkedIn</a>
           </div>
 
         </div>

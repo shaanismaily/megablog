@@ -6,7 +6,7 @@ import { login as authLogin } from "../store/authSlice";
 import { useState } from "react";
 import { Input, Logo, Button } from "./index";
 
-function Login({ email, password }) {
+function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,60 +27,67 @@ function Login({ email, password }) {
         navigate("/");
       }
     } catch (error) {
-      setError(error);
+      setError(error.message || "Login failed");
     }
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
-      <div>
-        <div className="mb-2 flex justify-center">
-          <span>
-            <Logo width="70px" />
-          </span>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+
+        <div className="flex justify-center mb-4">
+          <Logo width="70px" />
         </div>
-        <h2>Sign in to your account</h2>
-        <p>
-          Don't have any account?
+
+        <h2 className="text-2xl font-bold text-center mb-2">
+          Sign in to your account
+        </h2>
+
+        <p className="text-center text-sm mb-6">
+          Don't have an account?{" "}
           <Link
             to="/signup"
-            className="font-medium text-primary transition-all duration-200 hover:underline"
+            className="text-blue-500 hover:underline font-medium"
           >
             Sign Up
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-      </div>
-      <form onSubmit={handleSubmit(login)}>
-        <div className="space-y-5">
+
+        {error && (
+          <p className="text-red-600 text-sm text-center mb-4">
+            {error}
+          </p>
+        )}
+
+        <form onSubmit={handleSubmit(login)} className="space-y-5">
           <Input
             type="email"
-            label="Email: "
+            label="Email"
             placeholder="Enter your email"
             {...register("email", {
-              required: true,
+              required: "Email is required",
               validate: {
                 matchPattern: (value) =>
                   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                  "Email address must be a valid address",
+                  "Invalid email address",
               },
             })}
           />
 
           <Input
-            label="Password: "
             type="password"
+            label="Password"
             placeholder="Enter your password"
             {...register("password", {
-              required: true,
+              required: "Password is required",
             })}
           />
 
           <Button type="submit" className="w-full">
             Sign in
           </Button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
